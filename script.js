@@ -6,7 +6,7 @@ canvas.height = innerHeight;
 
 class Player {
     constructor() {
-        
+
 
         this.velocity = {
             x: 0,
@@ -28,8 +28,8 @@ class Player {
     }
 
     draw() {
-        if(this.image)
-        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        if (this.image)
+            c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 }
 
@@ -44,3 +44,18 @@ function animate() {
 }
 
 animate();
+
+// addEventListener('keydown', (event) => {
+//     console.log(event);
+// })
+
+addEventListener('keydown', ({ key }) => {
+    switch (key) {
+        case 'ArrowLeft, a':
+            console.log('left');
+            break;
+        case 'ArrowRight, d':
+            console.log('right');
+            break;
+    }
+})
