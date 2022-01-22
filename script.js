@@ -50,6 +50,7 @@ animate();
 // })
 
 addEventListener('keydown', ({ key }) => {
+    console.log(key);
     switch (key) {
         case 'ArrowLeft, a':
             console.log('left');
