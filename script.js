@@ -48,7 +48,30 @@ class Player {
     }
 }
 
+class Projectile {
+    constructor({ position, velocity }) {
+        this.position = position;
+        this.velocity = velocity
+        this.radius = 3
+    }
+
+    draw() {
+        c.beginPath();
+        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
+
+        c.fillStyle = 'red';
+        c.fill();
+        c.closePath();
+    }
+    update() {
+        this.draw();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    }
+}
+
 const player = new Player();
+const projectiles = [];
 const keys = {
     a: {
         pressed: false
@@ -66,6 +89,9 @@ function animate() {
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height);
     player.update();
+    projectiles.forEach(projectile => {
+        projectile.update();
+    });
 
     if (keys.a.pressed && player.position.x >= 0) {
         player.velocity.x = -7
@@ -95,6 +121,16 @@ addEventListener('keydown', ({ key }) => {
         case ' ':
             keys.space.pressed = true
             console.log('space');
+            projectiles.push(new Projectile({
+                position: {
+                    x: player.position.x + player.width / 2,
+                    y: player.position.y
+                },
+                velocity: {
+                    x: 0,
+                    y: -10
+                }
+            }))
             break;
     }
 })
