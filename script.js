@@ -6,13 +6,10 @@ canvas.height = innerHeight;
 
 class Player {
     constructor() {
-
-
         this.velocity = {
             x: 0,
             y: 0
         }
-
         this.rotation = 0
 
         const image = new Image();
@@ -47,6 +44,40 @@ class Player {
         }
     }
 }
+class Invader {
+    constructor() {
+        this.velocity = {
+            x: 0,
+            y: 0
+        }
+        this.rotation = 0
+
+        const image = new Image();
+        image.src = './images/invader.png';
+        image.onload = () => {
+            const scale = 0.05;
+            this.image = image;
+            this.width = image.width * scale;
+            this.height = image.height * scale;
+            this.position = {
+                x: canvas.width / 2 - this.width / 2,
+                y: canvas.height / 2
+            }
+        }
+    }
+
+    draw() {
+        if (this.image)
+            c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+    }
+
+    update() {
+        if (this.image) {
+            this.draw();
+            this.position.x += this.velocity.x;
+        }
+    }
+}
 
 class Projectile {
     constructor({ position, velocity }) {
@@ -70,8 +101,12 @@ class Projectile {
     }
 }
 
+
+
 const player = new Player();
 const projectiles = [];
+const invader = new Invader();
+
 const keys = {
     a: {
         pressed: false
@@ -88,6 +123,7 @@ function animate() {
     requestAnimationFrame(animate);
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height);
+    invader.update();
     player.update();
     projectiles.forEach((projectile, index) => {
         if (projectile.position.y + projectile.radius <= 0) {
