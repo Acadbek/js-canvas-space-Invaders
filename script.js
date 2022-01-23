@@ -31,32 +31,75 @@ class Player {
         if (this.image)
             c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
+
+    update() {
+        if (this.image) {
+            this.draw();
+            this.position.x += this.velocity.x;
+        }
+    }
 }
 
 const player = new Player();
-player.draw();
+const keys = {
+    a: {
+        pressed: false
+    },
+    d: {
+        pressed: false
+    },
+    space: {
+        pressed: false
+    }
+}
 
 function animate() {
     requestAnimationFrame(animate);
     c.fillStyle = 'rgba(0, 0, 0, 0.1)';
     c.fillRect(0, 0, canvas.width, canvas.height);
-    player.draw();
+    player.update();
+
+    if (keys.a.pressed) {
+        player.velocity.x = -5
+    } else if (keys.d.pressed) {
+        player.velocity.x = 5
+    } else {
+        player.velocity.x = 0
+    }
+
 }
 
 animate();
 
-// addEventListener('keydown', (event) => {
-//     console.log(event);
-// })
-
 addEventListener('keydown', ({ key }) => {
-    console.log(key);
     switch (key) {
-        case 'ArrowLeft, a':
+        case 'a':
             console.log('left');
+            keys.a.pressed = true
             break;
-        case 'ArrowRight, d':
+        case 'd':
             console.log('right');
+            keys.d.pressed = true
+            break;
+        case ' ':
+            keys.space.pressed = true
+            console.log('space');
+            break;
+    }
+})
+
+addEventListener('keyup', ({ key }) => {
+    switch (key) {
+        case 'a':
+            console.log('left');
+            keys.a.pressed = false
+            break;
+        case 'd':
+            console.log('right');
+            keys.d.pressed = false
+            break;
+        case ' ':
+            console.log('space');
             break;
     }
 })
