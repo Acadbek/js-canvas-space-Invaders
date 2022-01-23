@@ -111,16 +111,16 @@ animate();
 addEventListener('keydown', ({ key }) => {
     switch (key) {
         case 'a':
-            console.log('left');
+            // console.log('left');
             keys.a.pressed = true
             break;
         case 'd':
-            console.log('right');
+            // console.log('right');
             keys.d.pressed = true
             break;
         case ' ':
             keys.space.pressed = true
-            console.log('space');
+            // console.log('space');
             projectiles.push(new Projectile({
                 position: {
                     x: player.position.x + player.width / 2,
@@ -129,8 +129,13 @@ addEventListener('keydown', ({ key }) => {
                 velocity: {
                     x: 0,
                     y: -10
-                }
+                },
             }))
+            if (projectiles.length > 10) {
+                projectiles.shift()
+            }
+            // console.log(projectiles);
+            // console.log(projectiles.length);
             break;
     }
 })
@@ -138,15 +143,15 @@ addEventListener('keydown', ({ key }) => {
 addEventListener('keyup', ({ key }) => {
     switch (key) {
         case 'a':
-            console.log('left');
+            // console.log('left');
             keys.a.pressed = false
             break;
         case 'd':
-            console.log('right');
+            // console.log('right');
             keys.d.pressed = false
             break;
         case ' ':
-            console.log('space');
+            // console.log('space');
             break;
     }
 })
